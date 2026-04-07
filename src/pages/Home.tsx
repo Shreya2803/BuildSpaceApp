@@ -11,13 +11,22 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Button } from "@/components/ui/button";
 import { useState } from "react";
 import { CreateProjectModal } from "@/components/CreateProjectModal";
+import { CreateOpportunityModal } from "@/components/CreateOpportunityModal";
 
 export default function Home() {
   const [modalOpen, setModalOpen] = useState(false);
+  const [oppModalOpen, setOppModalOpen] = useState(false);
   return (
     <Layout>
       <section className="py-8">
         <div className="container">
+          <div className="flex items-center justify-between mb-6">
+            <h1 className="font-display text-2xl font-semibold">Welcome to BuildSpace</h1>
+            <div className="flex gap-2">
+              <Button onClick={() => setModalOpen(true)}>Create Project</Button>
+              <Button variant="outline" onClick={() => setOppModalOpen(true)}>Create Opportunity</Button>
+            </div>
+          </div>
           <Tabs defaultValue="feed" className="w-full">
             <TabsList className="mb-6">
               <TabsTrigger value="feed">Feed</TabsTrigger>
@@ -77,6 +86,10 @@ export default function Home() {
             </TabsContent>
 
             <TabsContent value="opportunities">
+              <div className="flex items-center justify-between mb-6">
+                <h2 className="font-display text-2xl font-semibold">Hot Opportunities</h2>
+                <Button onClick={() => setOppModalOpen(true)}>Create Opportunity</Button>
+              </div>
               <div className="grid md:grid-cols-2 gap-4">
                 {opportunities.map((o, i) => (
                   <OpportunityCard key={o.id} opp={o} index={i} />
@@ -95,6 +108,7 @@ export default function Home() {
         </div>
       </section>
       <CreateProjectModal open={modalOpen} onOpenChange={setModalOpen} />
+      <CreateOpportunityModal open={oppModalOpen} onOpenChange={setOppModalOpen} />
     </Layout>
   );
 }

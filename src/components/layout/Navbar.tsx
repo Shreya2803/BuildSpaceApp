@@ -6,6 +6,7 @@ import { cn } from "@/lib/utils";
 import { useAuth } from "@/context/AuthContext";
 import { AuthModal } from "@/components/AuthModal";
 import { useNavigate } from "react-router-dom";
+import { UserProfilePanel } from "@/components/UserProfilePanel";
 
 const navItems = [
   { label: "Feed", path: "/home", icon: LayoutDashboard },
@@ -63,9 +64,12 @@ export function Navbar() {
 
           <div className="hidden md:flex items-center gap-2">
             {isLoggedIn ? (
-              <Button variant="outline" size="sm" onClick={handleLogout} className="gap-2">
-                <LogOut className="h-4 w-4" /> Logout
-              </Button>
+              <>
+                <UserProfilePanel />
+                <Button variant="outline" size="sm" onClick={handleLogout} className="gap-2">
+                  <LogOut className="h-4 w-4" /> Logout
+                </Button>
+              </>
             ) : (
               <>
                 <Button variant="outline" size="sm" onClick={() => setAuthOpen(true)}>Sign In</Button>
