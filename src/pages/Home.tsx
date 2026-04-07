@@ -8,8 +8,12 @@ import { DeveloperCard } from "@/components/cards/DeveloperCard";
 import { feedItems, projects, opportunities, developers } from "@/data/mock";
 import { Layout } from "@/components/layout/Layout";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Button } from "@/components/ui/button";
+import { useState } from "react";
+import { CreateProjectModal } from "@/components/CreateProjectModal";
 
 export default function Home() {
+  const [modalOpen, setModalOpen] = useState(false);
   return (
     <Layout>
       <section className="py-8">
@@ -61,6 +65,10 @@ export default function Home() {
             </TabsContent>
 
             <TabsContent value="projects">
+              <div className="flex items-center justify-between mb-6">
+                <h2 className="font-display text-2xl font-semibold">Trending Projects</h2>
+                <Button onClick={() => setModalOpen(true)}>Create Project</Button>
+              </div>
               <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
                 {projects.map((p, i) => (
                   <ProjectCard key={p.id} project={p} index={i} />
@@ -86,6 +94,7 @@ export default function Home() {
           </Tabs>
         </div>
       </section>
+      <CreateProjectModal open={modalOpen} onOpenChange={setModalOpen} />
     </Layout>
   );
 }

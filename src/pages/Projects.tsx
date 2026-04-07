@@ -5,12 +5,14 @@ import { Layout } from "@/components/layout/Layout";
 import { ProjectCard } from "@/components/cards/ProjectCard";
 import { projects } from "@/data/mock";
 import { Button } from "@/components/ui/button";
+import { CreateProjectModal } from "@/components/CreateProjectModal";
 
 const statuses = ["All", "Recruiting", "In Progress", "Completed"] as const;
 
 export default function Projects() {
   const [search, setSearch] = useState("");
   const [filter, setFilter] = useState<string>("All");
+  const [modalOpen, setModalOpen] = useState(false);
 
   const filtered = projects.filter((p) => {
     const matchSearch = p.title.toLowerCase().includes(search.toLowerCase()) ||
@@ -23,8 +25,13 @@ export default function Projects() {
     <Layout>
       <div className="container py-10">
         <div className="mb-8">
-          <h1 className="font-display text-3xl font-bold">Projects</h1>
-          <p className="mt-1 text-muted-foreground">Discover projects and find teams to join</p>
+          <div className="flex items-center justify-between">
+            <div>
+              <h1 className="font-display text-3xl font-bold">Projects</h1>
+              <p className="mt-1 text-muted-foreground">Discover projects and find teams to join</p>
+            </div>
+            <Button onClick={() => setModalOpen(true)}>Create Project</Button>
+          </div>
         </div>
         <div className="flex flex-col sm:flex-row gap-3 mb-8">
           <div className="relative flex-1">
@@ -59,6 +66,7 @@ export default function Projects() {
           <p className="text-center text-muted-foreground py-16">No projects found matching your search.</p>
         )}
       </div>
+      <CreateProjectModal open={modalOpen} onOpenChange={setModalOpen} />
     </Layout>
   );
 }
