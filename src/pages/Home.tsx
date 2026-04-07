@@ -9,32 +9,22 @@ import { feedItems, projects, opportunities, developers } from "@/data/mock";
 import { Layout } from "@/components/layout/Layout";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Button } from "@/components/ui/button";
-import { Plus } from "lucide-react";
+import { useState } from "react";
+import { CreateProjectModal } from "@/components/CreateProjectModal";
 
 export default function Home() {
+  const [modalOpen, setModalOpen] = useState(false);
   return (
     <Layout>
       <section className="py-8">
         <div className="container">
           <Tabs defaultValue="feed" className="w-full">
-            <div className="flex items-center justify-between mb-6">
-              <TabsList>
-                <TabsTrigger value="feed">Feed</TabsTrigger>
-                <TabsTrigger value="projects">Projects</TabsTrigger>
-                <TabsTrigger value="opportunities">Opportunities</TabsTrigger>
-                <TabsTrigger value="developers">Developers</TabsTrigger>
-              </TabsList>
-              <div className="flex gap-2">
-                <Button size="sm" className="gap-2">
-                  <Plus className="h-4 w-4" />
-                  Create Project
-                </Button>
-                <Button size="sm" variant="outline" className="gap-2">
-                  <Plus className="h-4 w-4" />
-                  Create Opportunity
-                </Button>
-              </div>
-            </div>
+            <TabsList className="mb-6">
+              <TabsTrigger value="feed">Feed</TabsTrigger>
+              <TabsTrigger value="projects">Projects</TabsTrigger>
+              <TabsTrigger value="opportunities">Opportunities</TabsTrigger>
+              <TabsTrigger value="developers">Developers</TabsTrigger>
+            </TabsList>
 
             <TabsContent value="feed">
               <div className="grid lg:grid-cols-3 gap-8">
@@ -75,6 +65,10 @@ export default function Home() {
             </TabsContent>
 
             <TabsContent value="projects">
+              <div className="flex items-center justify-between mb-6">
+                <h2 className="font-display text-2xl font-semibold">Trending Projects</h2>
+                <Button onClick={() => setModalOpen(true)}>Create Project</Button>
+              </div>
               <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
                 {projects.map((p, i) => (
                   <ProjectCard key={p.id} project={p} index={i} />
@@ -100,6 +94,7 @@ export default function Home() {
           </Tabs>
         </div>
       </section>
+      <CreateProjectModal open={modalOpen} onOpenChange={setModalOpen} />
     </Layout>
   );
 }

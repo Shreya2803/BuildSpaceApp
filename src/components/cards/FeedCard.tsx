@@ -3,7 +3,6 @@ import { Compass, FolderKanban, Megaphone } from "lucide-react";
 import type { FeedItem } from "@/data/mock";
 import { SkillBadge } from "./SkillBadge";
 import { cn } from "@/lib/utils";
-import { Button } from "@/components/ui/button";
 
 const typeConfig = {
   project: { icon: FolderKanban, color: "text-primary" },
@@ -37,11 +36,6 @@ export function FeedCard({ item, index = 0 }: { item: FeedItem; index?: number }
           {item.tags.map((t) => (
             <SkillBadge key={t} skill={t} />
           ))}
-        </div>
-        <div className="mt-3 flex justify-end">
-          <Button size="sm" className="bg-green-600 hover:bg-green-700 text-white">
-            Request
-          </Button>
         </div>
       </div>
     </motion.div>
