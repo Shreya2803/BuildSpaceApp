@@ -1,10 +1,11 @@
 import { Link, useLocation } from "react-router-dom";
-import { Code2, Compass, FolderKanban, LayoutDashboard, Menu, Users, X, LogOut } from "lucide-react";
+import { Code2, Compass, FolderKanban, LayoutDashboard, Menu, Users, X, LogOut, User } from "lucide-react";
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { useAuth } from "@/context/AuthContext";
 import { AuthModal } from "@/components/AuthModal";
+import { ProfilePanel } from "@/components/ProfilePanel";
 import { useNavigate } from "react-router-dom";
 
 const navItems = [
@@ -19,7 +20,8 @@ export function Navbar() {
   const navigate = useNavigate();
   const [mobileOpen, setMobileOpen] = useState(false);
   const [authOpen, setAuthOpen] = useState(false);
-  const { isLoggedIn, logout } = useAuth();
+  const [profileOpen, setProfileOpen] = useState(false);
+  const { isLoggedIn, logout, user } = useAuth();
 
   const handleLogout = () => {
     logout();
@@ -63,9 +65,20 @@ export function Navbar() {
 
           <div className="hidden md:flex items-center gap-2">
             {isLoggedIn ? (
-              <Button variant="outline" size="sm" onClick={handleLogout} className="gap-2">
-                <LogOut className="h-4 w-4" /> Logout
-              </Button>
+              <>
+                <Button
+                  variant="ghost"
+                  size="sm"
+                  onClick={() => setProfileOpen(true)}
+                  className="gap-2"
+                >
+                  <User className="h-4 w-4" />
+                  {user.name}
+                </Button>
+                <Button variant="outline" size="sm" onClick={handleLogout} className="gap-2">
+                  <LogOut className="h-4 w-4" /> Logout
+                </Button>
+              </>
             ) : (
               <>
                 <Button variant="outline" size="sm" onClick={() => setAuthOpen(true)}>Sign In</Button>
@@ -108,7 +121,18 @@ export function Navbar() {
             )}
             <div className="flex gap-2 mt-4">
               {isLoggedIn ? (
-                <Button variant="outline" size="sm" className="flex-1" onClick={handleLogout}>Logout</Button>
+                <>
+                  <Button
+                    variant="ghost"
+                    size="sm"
+                    className="flex-1"
+                    onClick={() => { setProfileOpen(true); setMobileOpen(false); }}
+                  >
+                    <User className="h-4 w-4 mr-2" />
+                    {user.name}
+                  </Button>
+                  <Button variant="outline" size="sm" className="flex-1" onClick={handleLogout}>Logout</Button>
+                </>
               ) : (
                 <>
                   <Button variant="outline" size="sm" className="flex-1" onClick={() => { setAuthOpen(true); setMobileOpen(false); }}>Sign In</Button>
@@ -120,6 +144,7 @@ export function Navbar() {
         )}
       </header>
       <AuthModal open={authOpen} onOpenChange={setAuthOpen} />
+      <ProfilePanel open={profileOpen} onOpenChange={setProfileOpen} />
     </>
   );
 }
