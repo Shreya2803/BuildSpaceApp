@@ -2,7 +2,7 @@
 
 A modern platform connecting developers, projects, and opportunities in the tech ecosystem. Built for developers, by developers.
 
-![BuildSpace](https://buildspaceapp.netlify.app/)
+https://buildspaceapp.netlify.app/
 
 ## 🚀 Features
 
