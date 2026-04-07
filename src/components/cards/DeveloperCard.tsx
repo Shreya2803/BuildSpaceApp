@@ -1,9 +1,17 @@
 import { motion } from "framer-motion";
-import { FolderKanban, Users } from "lucide-react";
+import { FolderKanban, Users, Check } from "lucide-react";
 import type { Developer } from "@/data/mock";
 import { SkillBadge } from "./SkillBadge";
+import { Button } from "@/components/ui/button";
+import { useState } from "react";
 
 export function DeveloperCard({ dev, index = 0 }: { dev: Developer; index?: number }) {
+  const [connectSent, setConnectSent] = useState(false);
+
+  const handleConnect = () => {
+    setConnectSent(true);
+  };
+
   return (
     <motion.div
       initial={{ opacity: 0, y: 12 }}
@@ -27,6 +35,22 @@ export function DeveloperCard({ dev, index = 0 }: { dev: Developer; index?: numb
       <div className="mt-4 flex items-center gap-4 text-xs text-muted-foreground">
         <span className="flex items-center gap-1"><FolderKanban className="h-3.5 w-3.5" />{dev.projects} projects</span>
         <span className="flex items-center gap-1"><Users className="h-3.5 w-3.5" />{dev.connections} connections</span>
+      </div>
+      <div className="mt-4">
+        {connectSent ? (
+          <div className="flex items-center gap-2 text-green-600">
+            <Check className="h-4 w-4" />
+            <span className="text-sm font-medium">Connection request sent</span>
+          </div>
+        ) : (
+          <Button
+            size="sm"
+            className="bg-green-600 hover:bg-green-700 text-white w-full"
+            onClick={handleConnect}
+          >
+            Connect
+          </Button>
+        )}
       </div>
     </motion.div>
   );

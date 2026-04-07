@@ -5,12 +5,14 @@ import { Layout } from "@/components/layout/Layout";
 import { OpportunityCard } from "@/components/cards/OpportunityCard";
 import { opportunities } from "@/data/mock";
 import { Button } from "@/components/ui/button";
+import { CreateOpportunityModal } from "@/components/CreateOpportunityModal";
 
 const types = ["All", "Teammate", "Hiring", "Hackathon"] as const;
 
 export default function Opportunities() {
   const [search, setSearch] = useState("");
   const [filter, setFilter] = useState<string>("All");
+  const [modalOpen, setModalOpen] = useState(false);
 
   const filtered = opportunities.filter((o) => {
     const matchSearch = o.title.toLowerCase().includes(search.toLowerCase()) ||
@@ -23,8 +25,13 @@ export default function Opportunities() {
     <Layout>
       <div className="container py-10">
         <div className="mb-8">
-          <h1 className="font-display text-3xl font-bold">Opportunities</h1>
-          <p className="mt-1 text-muted-foreground">Find hackathon teams, project roles, and more</p>
+          <div className="flex items-center justify-between">
+            <div>
+              <h1 className="font-display text-3xl font-bold">Opportunities</h1>
+              <p className="mt-1 text-muted-foreground">Find hackathon teams, project roles, and more</p>
+            </div>
+            <Button onClick={() => setModalOpen(true)}>Create Opportunity</Button>
+          </div>
         </div>
         <div className="flex flex-col sm:flex-row gap-3 mb-8">
           <div className="relative flex-1">
@@ -59,6 +66,7 @@ export default function Opportunities() {
           <p className="text-center text-muted-foreground py-16">No opportunities found matching your search.</p>
         )}
       </div>
+      <CreateOpportunityModal open={modalOpen} onOpenChange={setModalOpen} />
     </Layout>
   );
 }

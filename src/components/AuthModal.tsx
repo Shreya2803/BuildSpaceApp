@@ -19,13 +19,23 @@ export function AuthModal({ open, onOpenChange }: AuthModalProps) {
   const { login } = useAuth();
   const navigate = useNavigate();
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (view === "forgot") {
       setView("login");
       return;
     }
-    login();
+    const formData = new FormData(e.currentTarget);
+    const name = formData.get("name") as string || "User";
+    const email = formData.get("email") as string;
+    const user = {
+      name,
+      email,
+      skills: [],
+      interests: [],
+      projects: [],
+    };
+    login(user);
     onOpenChange(false);
     navigate("/home");
   };
