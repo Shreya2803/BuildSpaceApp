@@ -3,6 +3,8 @@ import { Compass, FolderKanban, Megaphone } from "lucide-react";
 import type { FeedItem } from "@/data/mock";
 import { SkillBadge } from "./SkillBadge";
 import { cn } from "@/lib/utils";
+import { Button } from "@/components/ui/button";
+import { useState } from "react";
 
 const typeConfig = {
   project: { icon: FolderKanban, color: "text-primary" },
@@ -13,6 +15,11 @@ const typeConfig = {
 export function FeedCard({ item, index = 0 }: { item: FeedItem; index?: number }) {
   const config = typeConfig[item.type];
   const Icon = config.icon;
+  const [requestSent, setRequestSent] = useState(false);
+
+  const handleRequest = () => {
+    setRequestSent(true);
+  };
 
   return (
     <motion.div
@@ -36,6 +43,19 @@ export function FeedCard({ item, index = 0 }: { item: FeedItem; index?: number }
           {item.tags.map((t) => (
             <SkillBadge key={t} skill={t} />
           ))}
+        </div>
+        <div className="mt-3">
+          {requestSent ? (
+            <span className="text-sm text-green-600 font-medium">Request sent</span>
+          ) : (
+            <Button
+              size="sm"
+              className="bg-green-600 hover:bg-green-700 text-white"
+              onClick={handleRequest}
+            >
+              Request
+            </Button>
+          )}
         </div>
       </div>
     </motion.div>
