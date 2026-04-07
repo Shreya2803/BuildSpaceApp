@@ -11,11 +11,9 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Button } from "@/components/ui/button";
 import { useState } from "react";
 import { CreateProjectModal } from "@/components/CreateProjectModal";
-import { CreateOpportunityModal } from "@/components/CreateOpportunityModal";
 
 export default function Home() {
   const [modalOpen, setModalOpen] = useState(false);
-  const [oppModalOpen, setOppModalOpen] = useState(false);
   return (
     <Layout>
       <section className="py-8">
@@ -108,7 +106,6 @@ export default function Home() {
         </div>
       </section>
       <CreateProjectModal open={modalOpen} onOpenChange={setModalOpen} />
-      <CreateOpportunityModal open={oppModalOpen} onOpenChange={setOppModalOpen} />
     </Layout>
   );
 }
