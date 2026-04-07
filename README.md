@@ -136,43 +136,12 @@ The app uses shadcn/ui for consistent, accessible components:
 - Authentication modal (UI ready)
 - Modern UI with dark/light mode support
 - Mobile-responsive design
-
-### 🚧 In Progress
 - Backend API integration
-- Real-time notifications
 - User profiles and authentication
 - Advanced search and filtering
-- Project collaboration tools
-
-### 📋 Planned
 - Real user authentication
-- Database integration
-- File uploads for project assets
-- Messaging system
-- Project milestones and progress tracking
 
-## 🤝 Contributing
 
-1. Fork the repository
-2. Create a feature branch: `git checkout -b feature/amazing-feature`
-3. Commit your changes: `git commit -m 'Add amazing feature'`
-4. Push to the branch: `git push origin feature/amazing-feature`
-5. Open a Pull Request
-
-## 📄 License
-
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
-
-## 🙏 Acknowledgments
-
-- Built with [shadcn/ui](https://ui.shadcn.com/) for beautiful components
-- Icons from [Lucide](https://lucide.dev/)
-- Animations powered by [Framer Motion](https://www.framer.com/motion/)
-- Styled with [Tailwind CSS](https://tailwindcss.com/)
-
-## 📞 Contact
-
-For questions or suggestions, please open an issue on GitHub.
 
 ---
 
